@@ -11,6 +11,19 @@ from .validators import boolean, integer
 from .validators.route53resolver import validate_ruletype
 
 
+class FirewallConfig(AWSObject):
+    """
+    `FirewallConfig <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-route53resolver-firewallconfig.html>`__
+    """
+
+    resource_type = "AWS::Route53Resolver::FirewallConfig"
+
+    props: PropsDictType = {
+        "FirewallFailOpen": (str, False),
+        "ResourceId": (str, False),
+    }
+
+
 class FirewallDomainList(AWSObject):
     """
     `FirewallDomainList <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-route53resolver-firewalldomainlist.html>`__
@@ -46,6 +59,16 @@ class FirewallAdvancedThreatCategoryConfig(AWSProperty):
     }
 
 
+class PartnerThreatProtectionConfig(AWSProperty):
+    """
+    `PartnerThreatProtectionConfig <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53resolver-firewallrulegroup-partnerthreatprotectionconfig.html>`__
+    """
+
+    props: PropsDictType = {
+        "Partner": (str, True),
+    }
+
+
 class FirewallRuleType(AWSProperty):
     """
     `FirewallRuleType <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53resolver-firewallrulegroup-firewallruletype.html>`__
@@ -57,6 +80,7 @@ class FirewallRuleType(AWSProperty):
             False,
         ),
         "FirewallAdvancedThreatCategory": (FirewallAdvancedThreatCategoryConfig, False),
+        "PartnerThreatProtection": (PartnerThreatProtectionConfig, False),
     }
 
 
@@ -79,6 +103,7 @@ class FirewallRule(AWSProperty):
         "FirewallThreatProtectionId": (str, False),
         "Priority": (integer, True),
         "Qtype": (str, False),
+        "Status": (str, False),
     }
 
 
