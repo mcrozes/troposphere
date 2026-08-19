@@ -425,6 +425,16 @@ class ClusterCapacityProviderAssociations(AWSObject):
     }
 
 
+class ContainerInstance(AWSObject):
+    """
+    `ContainerInstance <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-containerinstance.html>`__
+    """
+
+    resource_type = "AWS::ECS::ContainerInstance"
+
+    props: PropsDictType = {}
+
+
 class DaemonAlarmConfiguration(AWSProperty):
     """
     `DaemonAlarmConfiguration <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-daemon-daemonalarmconfiguration.html>`__
@@ -891,15 +901,16 @@ class ExpressGatewayService(AWSObject):
     props: PropsDictType = {
         "Cluster": (str, False),
         "Cpu": (str, False),
-        "ExecutionRoleArn": (str, True),
+        "ExecutionRoleArn": (str, False),
         "HealthCheckPath": (str, False),
         "InfrastructureRoleArn": (str, True),
         "Memory": (str, False),
         "NetworkConfiguration": (ExpressGatewayServiceNetworkConfiguration, False),
-        "PrimaryContainer": (ExpressGatewayContainer, True),
+        "PrimaryContainer": (ExpressGatewayContainer, False),
         "ScalingTarget": (ExpressGatewayScalingTarget, False),
         "ServiceName": (str, False),
         "Tags": (Tags, False),
+        "TaskDefinitionArn": (str, False),
         "TaskRoleArn": (str, False),
     }
 
@@ -941,6 +952,17 @@ class DeploymentAlarms(AWSProperty):
     }
 
 
+class ThresholdConfiguration(AWSProperty):
+    """
+    `ThresholdConfiguration <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-service-thresholdconfiguration.html>`__
+    """
+
+    props: PropsDictType = {
+        "Type": (str, True),
+        "Value": (integer, True),
+    }
+
+
 class DeploymentCircuitBreaker(AWSProperty):
     """
     `DeploymentCircuitBreaker <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-service-deploymentcircuitbreaker.html>`__
@@ -948,7 +970,9 @@ class DeploymentCircuitBreaker(AWSProperty):
 
     props: PropsDictType = {
         "Enable": (boolean, True),
+        "ResetOnHealthyTask": (boolean, False),
         "Rollback": (boolean, True),
+        "ThresholdConfiguration": (ThresholdConfiguration, False),
     }
 
 
@@ -1342,6 +1366,16 @@ class Service(AWSObject):
     }
 
 
+class Task(AWSObject):
+    """
+    `Task <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-task.html>`__
+    """
+
+    resource_type = "AWS::ECS::Task"
+
+    props: PropsDictType = {}
+
+
 class Environment(AWSProperty):
     """
     `Environment <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-keyvaluepair.html>`__
@@ -1550,6 +1584,17 @@ class TaskSet(AWSObject):
     }
 
 
+class Attribute(AWSProperty):
+    """
+    `Attribute <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-containerinstance-attribute.html>`__
+    """
+
+    props: PropsDictType = {
+        "Name": (str, True),
+        "Value": (str, False),
+    }
+
+
 class AutoScalingArns(AWSProperty):
     """
     `AutoScalingArns <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-expressgatewayservice-autoscalingarns.html>`__
@@ -1604,4 +1649,42 @@ class IngressPathSummary(AWSProperty):
     props: PropsDictType = {
         "AccessType": (str, False),
         "Endpoint": (str, False),
+    }
+
+
+class Resource(AWSProperty):
+    """
+    `Resource <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-containerinstance-resource.html>`__
+    """
+
+    props: PropsDictType = {
+        "DoubleValue": (double, False),
+        "IntegerValue": (integer, False),
+        "LongValue": (double, False),
+        "Name": (str, False),
+        "StringSetValue": ([str], False),
+        "Type": (str, False),
+    }
+
+
+class TagsItems(AWSProperty):
+    """
+    `TagsItems <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-task-tagsitems.html>`__
+    """
+
+    props: PropsDictType = {
+        "Key": (str, True),
+        "Value": (str, True),
+    }
+
+
+class VersionInfo(AWSProperty):
+    """
+    `VersionInfo <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-containerinstance-versioninfo.html>`__
+    """
+
+    props: PropsDictType = {
+        "AgentHash": (str, False),
+        "AgentVersion": (str, False),
+        "DockerVersion": (str, False),
     }

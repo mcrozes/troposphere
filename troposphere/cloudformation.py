@@ -36,6 +36,30 @@ class CustomResource(AWSObject):
     }
 
 
+class TemplateConfiguration(AWSProperty):
+    """
+    `TemplateConfiguration <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudformation-generatedtemplate-templateconfiguration.html>`__
+    """
+
+    props: PropsDictType = {
+        "DeletionPolicy": (str, False),
+        "UpdateReplacePolicy": (str, False),
+    }
+
+
+class GeneratedTemplate(AWSObject):
+    """
+    `GeneratedTemplate <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudformation-generatedtemplate.html>`__
+    """
+
+    resource_type = "AWS::CloudFormation::GeneratedTemplate"
+
+    props: PropsDictType = {
+        "GeneratedTemplateName": (str, True),
+        "TemplateConfiguration": (TemplateConfiguration, False),
+    }
+
+
 class S3Location(AWSProperty):
     """
     `S3Location <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudformation-guardhook-s3location.html>`__
@@ -201,10 +225,12 @@ class LambdaHook(AWSObject):
 
     props: PropsDictType = {
         "Alias": (str, True),
+        "AutoUpdate": (boolean, False),
         "ExecutionRole": (str, True),
         "FailureMode": (str, True),
         "HookStatus": (str, True),
         "LambdaFunction": (str, True),
+        "LoggingConfig": (LoggingConfig, False),
         "StackFilters": (StackFilters, False),
         "TargetFilters": (TargetFilters, False),
         "TargetOperations": ([str], True),
@@ -297,6 +323,28 @@ class ResourceDefaultVersion(AWSObject):
     }
 
 
+class ScanFilter(AWSProperty):
+    """
+    `ScanFilter <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudformation-resourcescan-scanfilter.html>`__
+    """
+
+    props: PropsDictType = {
+        "Types": ([str], False),
+    }
+
+
+class ResourceScan(AWSObject):
+    """
+    `ResourceScan <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudformation-resourcescan.html>`__
+    """
+
+    resource_type = "AWS::CloudFormation::ResourceScan"
+
+    props: PropsDictType = {
+        "ScanFilters": ([ScanFilter], False),
+    }
+
+
 class ResourceVersion(AWSObject):
     """
     `ResourceVersion <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudformation-resourceversion.html>`__
@@ -314,26 +362,16 @@ class ResourceVersion(AWSObject):
 
 class Stack(AWSObject):
     """
-    `Stack <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudformation-stack.html>`__
+    `Stack <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-stack.html>`__
     """
 
     resource_type = "AWS::CloudFormation::Stack"
 
     props: PropsDictType = {
-        "Capabilities": ([str], False),
-        "Description": (str, False),
-        "DisableRollback": (boolean, False),
-        "EnableTerminationProtection": (boolean, False),
         "NotificationARNs": ([str], False),
         "Parameters": (dict, False),
-        "RoleARN": (str, False),
-        "StackName": (str, True),
-        "StackPolicyBody": (dict, False),
-        "StackPolicyURL": (str, False),
-        "StackStatusReason": (str, False),
         "Tags": (Tags, False),
-        "TemplateBody": (dict, False),
-        "TemplateURL": (str, False),
+        "TemplateURL": (str, True),
         "TimeoutInMinutes": (integer, False),
     }
 
@@ -486,14 +524,14 @@ class WaitConditionHandle(AWSObject):
     props: PropsDictType = {}
 
 
-class Output(AWSProperty):
+class TemplateProgress(AWSProperty):
     """
-    `Output <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudformation-stack-output.html>`__
+    `TemplateProgress <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudformation-generatedtemplate-templateprogress.html>`__
     """
 
     props: PropsDictType = {
-        "Description": (str, False),
-        "ExportName": (str, False),
-        "OutputKey": (str, False),
-        "OutputValue": (str, False),
+        "ResourcesFailed": (integer, False),
+        "ResourcesPending": (integer, False),
+        "ResourcesProcessing": (integer, False),
+        "ResourcesSucceeded": (integer, False),
     }

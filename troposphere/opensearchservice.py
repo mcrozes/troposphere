@@ -399,6 +399,7 @@ class SoftwareUpdateOptions(AWSProperty):
 
     props: PropsDictType = {
         "AutoSoftwareUpdateEnabled": (boolean, False),
+        "UseLatestServiceSoftwareForBlueGreen": (boolean, False),
     }
 
 
@@ -434,6 +435,7 @@ class Domain(AWSObject):
         "DomainName": (str, False),
         "EBSOptions": (EBSOptions, False),
         "EncryptionAtRestOptions": (EncryptionAtRestOptions, False),
+        "EngineMode": (str, False),
         "EngineVersion": (validate_search_service_engine_version, False),
         "IPAddressType": (str, False),
         "IdentityCenterOptions": (IdentityCenterOptions, False),
@@ -444,6 +446,7 @@ class Domain(AWSObject):
         "SnapshotOptions": (SnapshotOptions, False),
         "SoftwareUpdateOptions": (SoftwareUpdateOptions, False),
         "Tags": (Tags, False),
+        "UseCase": (str, False),
         "VPCOptions": (VPCOptions, False),
     }
 
